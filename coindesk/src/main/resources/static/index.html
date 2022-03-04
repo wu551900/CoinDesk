@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<form id="bpi_form">
+    <div>
+        <label>更新時間</label> <input type="datetime-local" id="updated" name="updated" />
+    </div>
+    <div>
+        <label>ISO更新時間</label> <input type="datetime-local" id="updatedISO" name="updatedISO" />
+    </div>
+    <div>
+        <label>UK更新時間</label> <input type="datetime-local" id="updateduk" name="updateduk" />
+    </div>
+    <div>
+        <label>幣別</label> <input type="text" id="codeName" name="codeName" />
+    </div>
+    <div>
+        <label>符號</label> <input type="text" id="symbol" name="symbol" />
+    </div>
+    <div>
+        <label>匯率</label> <input type="number" id="rate" name="rate" />
+    </div>
+    <div>
+        <label>描述</label> <input type="text" id="description" name="description" />
+    </div>
+    <div>
+        <label>浮動匯率</label> <input type="number" id="rateFloat" name="rateFloat" />
+    </div>
+    <input type="submit"  id="bpi" value="新增"/>
+</form>
+
+<input type="button" id="update" value="更新">
+
+<script type="text/javascript" src="/static/jquery/jquery-3.6.0.min.js"></script>
+<script>
+    $('#bpi').click(function(){
+        $.ajax({
+            type:"POST",
+            url:"/v1/coin/save",
+            data:$('#bpi_form').serialize(),
+            dataType:"json",
+            success:function (r) {
+                console.log(r.message);
+            }
+        })
+        return false;
+    })
+    $('#update').click(function () {
+        $.ajax({
+            type:"GET",
+            url:"/v1/coin/update",
+            success:function (r) {
+                console.log(r.message);
+            }
+        })
+    })
+</script>
+</body>
+</html>
